@@ -6,6 +6,10 @@ class IterationStats
     @iteration = iteration
   end
 
+  def finish_date
+    finish.strftime('%m/%d/%Y')
+  end
+
   def update!
     @story_count = @iteration.stories.count
     @feature_points = 0

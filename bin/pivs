@@ -1,20 +1,16 @@
 #!/usr/bin/env ruby
 
-$LOAD_PATH.unshift(File.expand_path(File.join(File.dirname(__FILE__), '..', 'lib')))
-
-require 'rubygems'
-require 'bundler/setup'
-require 'pivotal-tracker'
-require 'iteration_stats'
-require 'project_stats'
-require 'aggregate_project_stats'
+load File.expand_path(File.join(File.dirname(__FILE__), '..', 'pivotalstats.rb'))
 
 PivotalTracker::Client.token = ""
 
-allstats = AggregateProjectStats.new(PivotalTracker::Project.all)
-allstats.update!
+stats = StatsAggregator.new(8)
+PivotalTracker::Project.all.each do |project|
+  puts "Adding project #{project.name}"
+  stats.add_project(project)
+end
 
-allstats.project_stats.each do |finish, stats_list|
+stats.iterations.each do |finish, stats_list|
   puts "Sprint until #{finish}"
   stats_list.each do |project, stats|
     puts "Project #{project} Feature points: #{stats.feature_points}, Other points: #{stats.other_points}"
