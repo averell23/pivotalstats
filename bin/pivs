@@ -14,7 +14,7 @@ PivotalTracker::Client.token = ""
 allstats = AggregateProjectStats.new(PivotalTracker::Project.all)
 allstats.update!
 
-allstats.each do |finish, stats_list|
+allstats.project_stats.each do |finish, stats_list|
   puts "Sprint until #{finish}"
   stats_list.each do |project, stats|
     puts "Project #{project} Feature points: #{stats.feature_points}, Other points: #{stats.other_points}"

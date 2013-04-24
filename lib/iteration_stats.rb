@@ -18,7 +18,7 @@ class IterationStats
 
   def add_story(story)
     return unless(story.current_state == 'accepted')
-    if(story.story_type = 'feature')
+    if(story.story_type == 'feature')
       @feature_points += (story.estimate || 0)
     else
       @other_points += (story.estimate || 0)

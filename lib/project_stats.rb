@@ -8,7 +8,7 @@ class ProjectStats
 
   def update!
     @iterations = {}
-    PivotalTracker::Iteration.done(@project, offset: -10).each { |i| add_iteration i }
+    PivotalTracker::Iteration.done(@project, offset: -1).each { |i| add_iteration i } rescue nil
   end
 
   private
