@@ -10,8 +10,8 @@ class CsvProcessor
     @data.each do |date, project_data|
       row = [ date ]
       projects.each do |project|
-        row << project_data[project].feature_points
-        row << project_data[project].other_points
+        row << (project_data[project].full?(:feature_points)  || 0)
+        row << (project_data[project].full?(:other_points) || 0)
       end
       result << row
     end

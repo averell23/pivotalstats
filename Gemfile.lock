@@ -25,6 +25,7 @@ GEM
     nokogiri (1.5.9)
     nokogiri-happymapper (0.5.7)
       nokogiri (~> 1.5)
+    rake (10.0.4)
     rest-client (1.6.7)
       mime-types (>= 1.16)
     rspec (2.12.0)
@@ -35,10 +36,13 @@ GEM
     rspec-expectations (2.12.1)
       diff-lcs (~> 1.1.3)
     rspec-mocks (2.12.2)
+    tins (0.7.2)
 
 PLATFORMS
   ruby
 
 DEPENDENCIES
   pivotal-tracker!
+  rake
   rspec
+  tins (~> 0.7)
