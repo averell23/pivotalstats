@@ -6,3 +6,4 @@ require 'pivotal-tracker'
 
 require 'lib/iteration_stats'
 require 'lib/stats_aggregator'
+require 'lib/csv_processor'

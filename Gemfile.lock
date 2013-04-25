@@ -1,6 +1,5 @@
-GIT
-  remote: git://github.com/averell23/pivotal-tracker.git
-  revision: 93ad50aad2a42a0cc1d73ff875ca04cd3eb77c01
+PATH
+  remote: /Developer/pivotal-tracker
   specs:
     pivotal-tracker (0.5.10)
       builder
