@@ -1,3 +1,6 @@
+require 'date'
+require 'csv'
+
 class CsvProcessor
 
   def initialize(hash)
@@ -7,30 +10,46 @@ class CsvProcessor
   def result
     result = []
     result << columns
-    @data.each do |date, project_data|
-      row = [ date ]
-      projects.each do |project|
-        row << (project_data[project].full?(:feature_points)  || 0)
-        row << (project_data[project].full?(:other_points) || 0)
-      end
-      result << row
+    iterations.each do |iteration|
+      result << add_iteration(iteration)
     end
     result
   end
 
+  def csv
+    CSV.generate do |csv|
+      result.each { |line| csv << line }
+    end
+  end
+
   private
+
+  def add_iteration(iteration)
+    row = [ iteration ]
+    projects.each do |project|
+      row << (@data[iteration][project].full?(:feature_points)  || 0)
+      row << (@data[iteration][project].full?(:other_points) || 0)
+    end
+    row
+  end
+
+  def iterations
+    @data.keys.sort
+  end
 
   def columns
     columns = [ 'Finish Date' ]
-    projects.each { |p| columns += [ "#{p} Feature Points", "#{p} Other points" ] }
+    projects.each { |p| columns += [ "#{p} feature points", "#{p} Other points" ] }
     columns
   end
 
   def projects
-    projects = {}
-    @data.each_value do |project_data|
-      project_data.each_key { |project_name| projects[project_name] = true }
+    @projects ||= begin
+      projects = {}
+      @data.each_value do |project_data|
+        project_data.each_key { |project_name| projects[project_name] = true }
+      end
+      projects.keys.sort
     end
-    projects.keys
   end
 end

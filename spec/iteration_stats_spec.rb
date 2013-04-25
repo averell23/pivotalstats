@@ -18,7 +18,7 @@ describe IterationStats do
     before(:each) { stats.update! }
 
     it "returns the formatted finish date" do
-      stats.finish_date.should eq '04/04/2013'
+      stats.finish_date.should eq '2013-04-04'
     end
 
     it "ignores non-accepted stories" do

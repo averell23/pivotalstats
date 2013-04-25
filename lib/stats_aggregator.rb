@@ -18,7 +18,9 @@ class StatsAggregator
   private
 
   def get_iterations(project)
-    PivotalTracker::Iteration.done(project, offset: -@number_of_iterations) rescue []
+    [].tap do |iterations|
+      (0..@number_of_iterations).each { |off| iterations << PivotalTracker::Iteration.done(project, offset: -off, limit: 1).first rescue nil }
+    end
   end
 
   def add_iteration_stats(project_name, iteration_stat)

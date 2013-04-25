@@ -4,7 +4,7 @@ load File.expand_path(File.join(File.dirname(__FILE__), '..', 'pivotalstats.rb')
 
 PivotalTracker::Client.token = ""
 
-stats = StatsAggregator.new(8)
+stats = StatsAggregator.new(30)
 PivotalTracker::Project.all.each do |project|
   puts "Adding project #{project.name}"
   stats.add_project(project)
@@ -16,3 +16,5 @@ stats.iterations.each do |finish, stats_list|
     puts "Project #{project} Feature points: #{stats.feature_points}, Other points: #{stats.other_points}"
   end
 end
+
+File.open(ARGV.first, 'w') { |io| io << CsvProcessor.new(stats.iterations).csv.encode('utf-8') }

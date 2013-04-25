@@ -7,7 +7,7 @@ class IterationStats
   end
 
   def finish_date
-    finish.strftime('%m/%d/%Y')
+    finish.strftime('%Y-%m-%d')
   end
 
   def update!
