@@ -1,10 +1,25 @@
 #!/usr/bin/env ruby
 
+require 'optparse'
+
 load File.expand_path(File.join(File.dirname(__FILE__), '..', 'pivotalstats.rb'))
 
-PivotalTracker::Client.token = ""
+past_iterations = 1;
 
-stats = StatsAggregator.new(30)
+OptionParser.new do |opts|
+
+  opts.on('-t', '--token TOKEN', 'Pivotal Tracker client token') do |token|
+    PivotalTracker::Client.token = token
+  end
+
+  opts.on('-i', '--iterations [ITERATIONS]', 'Number of iterations to fetch') do |iterations|
+    past_iterations = iterations.to_i
+  end
+
+end.parse!
+
+stats = StatsAggregator.new(past_iterations)
+
 PivotalTracker::Project.all.each do |project|
   puts "Adding project #{project.name}"
   stats.add_project(project)
