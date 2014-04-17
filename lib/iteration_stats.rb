@@ -26,7 +26,7 @@ class IterationStats
     return unless(story.current_state == 'accepted')
     if(story.story_type == 'feature')
       @feature_points += (story.estimate || 0)
-      @feature_points += 1
+      @feature_count += 1
     else
       @other_points += (story.estimate || 0)
       @other_count += 1

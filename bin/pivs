@@ -5,6 +5,7 @@ require 'optparse'
 load File.expand_path(File.join(File.dirname(__FILE__), '..', 'pivotalstats.rb'))
 
 past_iterations = 1;
+filename = "pivs.csv"
 
 OptionParser.new do |opts|
 
@@ -12,8 +13,12 @@ OptionParser.new do |opts|
     PivotalTracker::Client.token = token
   end
 
-  opts.on('-i', '--iterations [ITERATIONS]', 'Number of iterations to fetch') do |iterations|
+  opts.on('-i', '--iterations ITERATIONS', 'Number of iterations to fetch') do |iterations|
     past_iterations = iterations.to_i
+  end
+
+  opts.on('-o', '--output FILENAME', 'Output filename') do |file|
+    filename = file
   end
 
 end.parse!
@@ -32,4 +37,4 @@ stats.iterations.each do |finish, stats_list|
   end
 end
 
-File.open(ARGV.first, 'w') { |io| io << CsvProcessor.new(stats.iterations).csv.encode('utf-8') }
+File.open(filename, 'w') { |io| io << CsvProcessor.new(stats.iterations).csv.encode('utf-8') }
