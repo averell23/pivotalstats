@@ -29,6 +29,8 @@ class CsvProcessor
     projects.each do |project|
       row << (@data[iteration][project].full?(:feature_points)  || 0)
       row << (@data[iteration][project].full?(:other_points) || 0)
+      row << (@data[iteration][project].full?(:feature_count) || 0)
+      row << (@data[iteration][project].full?(:other_count) || 0)
     end
     row
   end
@@ -39,7 +41,7 @@ class CsvProcessor
 
   def columns
     columns = [ 'Finish Date' ]
-    projects.each { |p| columns += [ "#{p} feature points", "#{p} Other points" ] }
+    projects.each { |p| columns += [ "#{p} feature points", "#{p} Other points", "#{p} features stories", "#{p} other stories" ] }
     columns
   end
 

@@ -1,0 +1,31 @@
+#!/usr/bin/env ruby
+
+require 'optparse'
+
+load File.expand_path(File.join(File.dirname(__FILE__), '..', 'pivotalstats.rb'))
+
+past_iterations = 1;
+
+OptionParser.new do |opts|
+
+  opts.on('-t', '--token TOKEN', 'Pivotal Tracker client token') do |token|
+    PivotalTracker::Client.token = token
+  end
+
+end.parse!
+
+stats = StatsAggregator.new(past_iterations)
+
+PivotalTracker::Project.all.each do |project|
+  puts "Adding project #{project.name}"
+  stats.add_project(project)
+end
+
+stats.iterations.each do |finish, stats_list|
+  puts "Sprint until #{finish}"
+  stats_list.each do |project, stats|
+    puts "Project #{project} Feature points: #{stats.feature_points}, Other points: #{stats.other_points}"
+  end
+end
+
+File.open(ARGV.first, 'w') { |io| io << CsvProcessor.new(stats.iterations).csv.encode('utf-8') }
