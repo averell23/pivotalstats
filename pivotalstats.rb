@@ -2,7 +2,7 @@ $LOAD_PATH.unshift(File.expand_path(File.dirname(__FILE__)))
 
 require 'rubygems'
 require 'bundler/setup'
-require 'pivotal-tracker'
+require 'tracker_api'
 require 'tins/xt'
 
 require 'lib/iteration_stats'

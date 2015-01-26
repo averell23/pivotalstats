@@ -21,7 +21,7 @@ describe StatsAggregator do
     end
 
     it "adds the data for one stat" do
-      iteration_stats = stub(:iteration_stat, finish_date: 'abc' )
+      iteration_stats = stub(:iteration_stat, finish: 'abc' )
       iteration_stats.should_receive(:update!)
       aggregator.__send__(:add_iteration_stats, 'some_project', iteration_stats)
       aggregator.iterations.should eq('abc' => { 'some_project' => iteration_stats})

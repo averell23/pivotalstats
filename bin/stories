@@ -5,18 +5,19 @@ require 'optparse'
 load File.expand_path(File.join(File.dirname(__FILE__), '..', 'pivotalstats.rb'))
 
 past_iterations = 1;
+client = nil;
 
 OptionParser.new do |opts|
 
   opts.on('-t', '--token TOKEN', 'Pivotal Tracker client token') do |token|
-    PivotalTracker::Client.token = token
+    client = TrackerApi::Client.new token: token
   end
 
 end.parse!
 
 stats = StatsAggregator.new(past_iterations)
 
-PivotalTracker::Project.all.each do |project|
+client.projects.each do |project|
   puts "Adding project #{project.name}"
   stats.add_project(project)
 end

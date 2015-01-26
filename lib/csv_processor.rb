@@ -41,7 +41,7 @@ class CsvProcessor
 
   def columns
     columns = [ 'Finish Date' ]
-    projects.each { |p| columns += [ "#{p} feature points", "#{p} Other points", "#{p} features stories", "#{p} other stories" ] }
+    projects.each { |p| columns += [ "#{p} feature points", "#{p} Other points", "#{p} feature stories", "#{p} other stories" ] }
     columns
   end
 
