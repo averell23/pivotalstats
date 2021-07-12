@@ -1,7 +1,8 @@
 GEM
   remote: https://rubygems.org/
   specs:
-    addressable (2.3.6)
+    addressable (2.8.0)
+      public_suffix (>= 2.0.2, < 5.0)
     axiom-types (0.1.1)
       descendants_tracker (~> 0.0.4)
       ice_nine (~> 0.11.0)
@@ -23,6 +24,7 @@ GEM
       faraday (>= 0.7.4, < 0.10)
     ice_nine (0.11.1)
     multipart-post (2.0.0)
+    public_suffix (4.0.6)
     rake (12.3.3)
     rspec (2.13.0)
       rspec-core (~> 2.13.0)
