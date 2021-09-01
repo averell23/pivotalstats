@@ -1,0 +1,49 @@
+#!/usr/bin/env ruby
+
+require 'optparse'
+
+load File.expand_path(File.join(File.dirname(__FILE__), '..', 'pivotalstats.rb'))
+
+past_iterations = 1;
+client = nil;
+
+OptionParser.new do |opts|
+
+  opts.on('-t', '--token TOKEN', 'Pivotal Tracker client token') do |token|
+    client = TrackerApi::Client.new token: token
+  end
+
+end.parse!
+
+bp_new = client.project(1254912)
+mvp_stories = bp_new.stories(filter: 'label:"prd-next-mvp" includedone:true type:feature')
+
+results = {
+  completed:   { count: 0, points: 0 },
+  started:     { count: 0, points: 0 },
+  unstarted:   { count: 0, points: 0 },
+  unestimated: { count: 0, points: 0 }
+}
+
+mvp_stories.each do |s|
+  case s.current_state
+  when 'accepted'
+    results[:completed][:count] += 1
+    results[:completed][:points] += s.estimate
+  when 'started', 'finished', 'delivered'
+    results[:started][:count] += 1
+    results[:started][:points] += s.estimate
+  when 'planned', 'unscheduled', 'unstarted'
+    if s.estimate.blank?
+      results[:unestimated][:count] += 1
+    else
+      results[:unstarted][:count] += 1
+      results[:unstarted][:points] += s.estimate
+    end
+  else
+    puts "!!!!! Unknown: #{s.current_state}"
+  end
+  puts "#{s.current_state} #{s.estimate.blank?}"
+end
+
+puts results.inspect

@@ -15,6 +15,11 @@ OptionParser.new do |opts|
 
 end.parse!
 
+if ARGV.first.nil?
+  puts "Provide the file name as first argument"
+  exit 1
+end
+
 stats = StatsAggregator.new(past_iterations)
 
 client.projects.each do |project|
