@@ -43,7 +43,19 @@ mvp_stories.each do |s|
   else
     puts "!!!!! Unknown: #{s.current_state}"
   end
-  puts "#{s.current_state} #{s.estimate.blank?}"
 end
 
+comparison = { mvp: { count: 0, points: 0 }, non_mvp: { count: 0, points: 0 } }
+iterations =  bp_new.iterations(scope: "done", offset: -1, limit: 2)
+iterations.each do |it|
+  it.stories.each do |story|
+    next unless story.story_type == 'feature'
+    sel = story.labels&.map(&:name)&.include?('prd-next-mvp') ? :mvp : :non_mvp
+    comparison[sel][:count] += 1
+    comparison[sel][:points] += story.estimate
+  end
+end
+
+puts comparison.inspect
 puts results.inspect
+puts "Percentage: #{comparison[:non_mvp][:points]/comparison[:mvp][:points]}"
