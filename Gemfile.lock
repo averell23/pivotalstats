@@ -15,32 +15,22 @@ GEM
       thread_safe (~> 0.3, >= 0.3.1)
     diff-lcs (1.4.4)
     equalizer (0.0.11)
-    excon (0.85.0)
-    faraday (1.7.1)
-      faraday-em_http (~> 1.0)
-      faraday-em_synchrony (~> 1.0)
-      faraday-excon (~> 1.1)
-      faraday-httpclient (~> 1.0.1)
-      faraday-net_http (~> 1.0)
-      faraday-net_http_persistent (~> 1.1)
-      faraday-patron (~> 1.0)
-      faraday-rack (~> 1.0)
-      multipart-post (>= 1.2, < 3)
-      ruby2_keywords (>= 0.0.4)
-    faraday-em_http (1.0.0)
-    faraday-em_synchrony (1.0.0)
-    faraday-excon (1.1.0)
-    faraday-httpclient (1.0.1)
-    faraday-net_http (1.0.1)
-    faraday-net_http_persistent (1.2.0)
-    faraday-patron (1.0.0)
-    faraday-rack (1.0.0)
-    faraday_middleware (1.1.0)
-      faraday (~> 1.0)
+    faraday (2.14.1)
+      faraday-net_http (>= 2.0, < 3.5)
+      json
+      logger
+    faraday-multipart (1.2.0)
+      multipart-post (~> 2.0)
+    faraday-net_http (3.4.2)
+      net-http (~> 0.5)
     ice_nine (0.11.2)
+    json (2.18.1)
+    logger (1.7.0)
     mini_mime (1.1.1)
     multi_json (1.15.0)
-    multipart-post (2.1.1)
+    multipart-post (2.4.1)
+    net-http (0.9.1)
+      uri (>= 0.11.1)
     public_suffix (4.0.6)
     rake (13.0.6)
     representable (3.1.1)
@@ -60,21 +50,20 @@ GEM
       diff-lcs (>= 1.2.0, < 2.0)
       rspec-support (~> 3.10.0)
     rspec-support (3.10.2)
-    ruby2_keywords (0.0.5)
     thread_safe (0.3.6)
     tins (0.13.2)
-    tracker_api (1.13.0)
+    tracker_api (1.16.0)
       addressable
       equalizer
-      excon
-      faraday
-      faraday_middleware
+      faraday (>= 1.10, < 3.0)
+      faraday-multipart
       mini_mime
       multi_json
       representable
       virtus
     trailblazer-option (0.1.1)
     uber (0.1.0)
+    uri (1.1.1)
     virtus (2.0.0)
       axiom-types (~> 0.1)
       coercible (~> 1.0)
